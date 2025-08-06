@@ -12,7 +12,7 @@ export default function SpinningCube() {
 
         // Scene setup
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x000000);
+        scene.background = new THREE.Color(0x101828);
 
         // Camera setup
         const camera = new THREE.PerspectiveCamera(
