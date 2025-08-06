@@ -3,6 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import SpinningCube from './components/SpinningCube'
+import WireframeCube from './components/WireframeCube'
+import WireframeBrain from './components/WireframeBrain'
 
 /**function App() {
   const [count, setCount] = useState(0)
@@ -41,7 +43,7 @@ export default function App() {
     <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
       <h1 className="text-4xl font-bold mb-4">Tailwind is working!</h1>
       <div className="w-full h-96 bg-gray-900">
-        <SpinningCube />
+        <WireframeBrain />
       </div>
     </div>
   );
