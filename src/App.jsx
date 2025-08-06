@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import SpinningCube from './components/SpinningCube'
 
 /**function App() {
   const [count, setCount] = useState(0)
@@ -39,9 +40,9 @@ export default function App() {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
       <h1 className="text-4xl font-bold mb-4">Tailwind is working!</h1>
-      <button className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700">
-        Click Me
-      </button>
+      <div className="w-full h-96 bg-gray-900">
+        <SpinningCube />
+      </div>
     </div>
   );
 }
