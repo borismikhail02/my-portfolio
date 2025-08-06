@@ -3,8 +3,13 @@ import * as THREE from "three";
 
 export default function SpinningCube() {
     const mountRef = useRef(null);
+    const initializedRef = useRef(false);
 
     useEffect(() => {
+        // Preventing duplications during Strict Mode React startup
+        if (initializedRef.current) return;
+        initializedRef.current = true;
+
         // Scene setup
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x000000);
@@ -65,11 +70,16 @@ export default function SpinningCube() {
         // Cleanup on unmount
         return () => {
             window.removeEventListener("resize", resizeHandler);
-            if (mountRef.current) {
+
+            geometry.dispose();
+            material.dispose();
+            renderer.dispose();
+
+            if (mountRef.current?.contains(renderer.domElement)) {
                 mountRef.current.removeChild(renderer.domElement);
             };
         };
-    }, []);
+    });
 
     return <div ref={mountRef} style={{ width: "100%", height: "100vh" }}/>;
 }
