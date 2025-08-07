@@ -14,13 +14,24 @@ export default function DeconstructedCube() {
         const scene = new THREE.Scene();
 
         // Camera setup
-        const camera = new THREE.PerspectiveCamera(
+        /**const camera = new THREE.PerspectiveCamera(
             90,
             mountRef.current.clientWidth / mountRef.current.clientHeight,
             0.1,
             1000
         );
-        camera.position.z = 5;
+        camera.position.z = 5;*/
+        const frustumSize = mountRef.current.clientWidth / 200;
+        const aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
+        const camera = new THREE.OrthographicCamera(
+            (-frustumSize * aspect) / 2,
+            (frustumSize * aspect) / 2,
+            frustumSize / 2,
+            -frustumSize / 2,
+            0.1,
+            1000
+        );
+        camera.position.z = 10;
 
         // Renderer setup
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -67,7 +78,7 @@ export default function DeconstructedCube() {
             const line = new THREE.Line(lineGeometry, material);
             scene.add(line);
 
-            line.position.set(0,-3,0)
+            //line.position.set(0,-3,0)
             const originalPos = line.position.clone();
             
             const randomTargetOffset = new THREE.Vector3(
@@ -75,8 +86,7 @@ export default function DeconstructedCube() {
                 (Math.random() - 0.5) * 3, // Y offset between 0 and 4
                 (Math.random() - 0.5) * 4 // Z offset between -2 and 2
             );
-            //const finalTargetPos = getFinalWorldPosition();
-            const finalTargetPos = new THREE.Vector3(-8,0,-3);
+            const finalTargetPos = getFinalWorldPosition();
 
             const marker = new THREE.Mesh(
                 new THREE.SphereGeometry(0.05),
@@ -130,6 +140,11 @@ export default function DeconstructedCube() {
             if (!mountRef.current) return;
 
             camera.aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
+            camera.left = (-frustumSize * aspect) / 2;
+            camera.right = (frustumSize * aspect) / 2;
+            camera.top = frustumSize / 2;
+            camera.bottom = -frustumSize / 2;
+            
             camera.updateProjectionMatrix();
             renderer.setSize(
                 mountRef.current.clientWidth,
@@ -153,5 +168,5 @@ export default function DeconstructedCube() {
         };
     });
 
-    return <div ref={mountRef} className="w-full h-full"/>;
+    return <div ref={mountRef} className="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[9999]"/>;
 }
