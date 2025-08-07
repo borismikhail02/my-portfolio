@@ -5,6 +5,7 @@ import './App.css'
 import SpinningCube from './components/SpinningCube'
 import WireframeCube from './components/WireframeCube'
 import WireframeBrain from './components/WireframeBrain'
+import DeconstructedCube from './components/DeconstructedCube'
 
 /**function App() {
   const [count, setCount] = useState(0)
@@ -40,11 +41,18 @@ export default App
 
 export default function App() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
-      <h1 className="text-4xl font-bold mb-4">Tailwind is working!</h1>
-      <div className="w-full h-96 bg-gray-900">
-        <WireframeBrain />
-      </div>
+    <div className="relative h-[200vh] bg-gray-900 text-white">
+      <nav className="fixed top-0 left-0 right-0 h-20 bg-gray-300 flex items-center px-4 z-50">
+        <div id="logo" className="w-20 h-20 border-2 border-white bg-gray-600"/>
+        <div className="flex-1 relative h-screen">
+          <DeconstructedCube />
+        </div>
+      </nav>
+      <main className="pt-18">
+        <h1 className="text-center text-4xl font-bold mb-4 mt-18">
+          Scroll to Transform the Cube
+        </h1>
+      </main>
     </div>
   );
 }
