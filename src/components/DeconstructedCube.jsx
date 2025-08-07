@@ -82,8 +82,8 @@ export default function DeconstructedCube() {
             const originalPos = line.position.clone();
             
             const randomTargetOffset = new THREE.Vector3(
-                (Math.random() - 0.5) * 4, // X offset between -2 and 2
-                (Math.random() - 0.5) * 3, // Y offset between 0 and 4
+                (Math.random() - 0.5) * 4 - 4, // X offset between -2 and 2
+                (Math.random() - 0.5) * 3 + 2, // Y offset between 0 and 4
                 (Math.random() - 0.5) * 4 // Z offset between -2 and 2
             );
             const finalTargetPos = getFinalWorldPosition();
@@ -113,6 +113,7 @@ export default function DeconstructedCube() {
             scrollProgress = Math.min(scrollY / maxScroll, 1);
         });
         
+        let scaleFactor = 1;
 
         // Animation loop
         const animate = () => {
@@ -123,11 +124,13 @@ export default function DeconstructedCube() {
                     intermediatePos.lerpVectors(originalPos, randomTargetPos, scrollProgress / 0.5);
                 } else {
                     intermediatePos.lerpVectors(randomTargetPos, finalTargetPos, (scrollProgress - 0.5) / 0.5);
+                    scaleFactor = THREE.MathUtils.lerp(1, 0.3, (scrollProgress - 0.5) / 0.5);
                 };
 
                 line.position.copy(intermediatePos);
                 line.rotation.x += 0.01;
                 line.rotation.y += 0.01;
+                line.scale.set(scaleFactor, scaleFactor, scaleFactor);
             });
 
             renderer.render(scene, camera);
